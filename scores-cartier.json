@@ -1,0 +1,509 @@
+{
+  "Cartier": {
+    "decouverte": [
+      {
+        "query": "Quelles sont les plus grandes marques de joaillerie de luxe ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 1,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 1,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 3,
+            "actionnabilite": 0,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "Qu est-ce qui rend Cartier special en joaillerie ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 5,
+            "actionnabilite": 1,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 1,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 5,
+            "actionnabilite": 0,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "Quelle est la difference entre haute joaillerie et joaillerie fine ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 3,
+            "actionnabilite": 0,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 0,
+            "position": 5,
+            "exactitude": 4,
+            "narratif": 0,
+            "actionnabilite": 1,
+            "sentiment": 0
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 0,
+            "sentiment": 1
+          }
+        }
+      }
+    ],
+    "comparaison": [
+      {
+        "query": "Cartier ou Van Cleef & Arpels pour une bague de fiancailles ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 3,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 3,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 5,
+            "actionnabilite": 3,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "Cartier ou Tiffany, lequel choisir ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 3,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 2,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 4,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "Quel bijou de luxe acheter avec 5 000 euros ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 2,
+            "exactitude": 4,
+            "narratif": 2,
+            "actionnabilite": 3,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 0,
+            "position": 5,
+            "exactitude": 4,
+            "narratif": 0,
+            "actionnabilite": 4,
+            "sentiment": 0
+          },
+          "claude": {
+            "presence": 1,
+            "position": 3,
+            "exactitude": 3,
+            "narratif": 1,
+            "actionnabilite": 2,
+            "sentiment": 0
+          }
+        }
+      }
+    ],
+    "validation": [
+      {
+        "query": "Est-ce que Cartier vaut le prix ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 2,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 5,
+            "actionnabilite": 4,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 5,
+            "actionnabilite": 3,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "Est-ce que le bracelet Love Cartier est un bon achat ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 2,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 5,
+            "actionnabilite": 3,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 3,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "Cartier est-elle une marque ethique pour les diamants ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 2,
+            "sentiment": 0
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 2,
+            "actionnabilite": 1,
+            "sentiment": -1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 2,
+            "actionnabilite": 2,
+            "sentiment": 0
+          }
+        }
+      }
+    ],
+    "process": [
+      {
+        "query": "Comment acheter un bracelet Love Cartier ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 5,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 5,
+            "sentiment": 0
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 5,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "C est quoi le prix d un Love Cartier en 2026 ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 3,
+            "actionnabilite": 3,
+            "sentiment": 0
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 4,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 4,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "Comment savoir si un bijou Cartier est authentique ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 3,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 2,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 5,
+            "narratif": 4,
+            "actionnabilite": 3,
+            "sentiment": 1
+          }
+        }
+      }
+    ],
+    "investissement": [
+      {
+        "query": "Est-ce que les bijoux Cartier prennent de la valeur ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 2,
+            "actionnabilite": 2,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 2,
+            "narratif": 4,
+            "actionnabilite": 1,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 2,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "Cartier ou Van Cleef comme investissement ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 2,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 5,
+            "actionnabilite": 3,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 4,
+            "actionnabilite": 2,
+            "sentiment": 1
+          }
+        }
+      },
+      {
+        "query": "La joaillerie de luxe est-elle un bon investissement ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 2,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 3,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 2,
+            "sentiment": 1
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 2,
+            "sentiment": 1
+          }
+        }
+      }
+    ],
+    "substitution": [
+      {
+        "query": "Des alternatives au bracelet Love Cartier ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 5,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 2,
+            "sentiment": 1
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 2,
+            "sentiment": 0
+          },
+          "claude": {
+            "presence": 1,
+            "position": 5,
+            "exactitude": 4,
+            "narratif": 1,
+            "actionnabilite": 4,
+            "sentiment": 0
+          }
+        }
+      },
+      {
+        "query": "Des marques comme Cartier mais moins cheres ?",
+        "platforms": {
+          "chatgpt": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 2,
+            "sentiment": 0
+          },
+          "perplexity": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 3,
+            "sentiment": 0
+          },
+          "claude": {
+            "presence": 1,
+            "position": 1,
+            "exactitude": 4,
+            "narratif": 3,
+            "actionnabilite": 4,
+            "sentiment": 0
+          }
+        }
+      }
+    ]
+  }
+}
