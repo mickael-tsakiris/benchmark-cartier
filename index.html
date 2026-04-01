@@ -838,6 +838,31 @@ body { text-rendering: optimizeLegibility; }
 </head>
 <body>
 
+<div id="authScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #FAF8F5; z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <div style="text-align: center; max-width: 400px; padding: 40px;">
+        <div style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #8A6D5A; margin-bottom: 24px;">luxe aeternai</div>
+        <img src="Cartier_logo.svg.png" alt="Cartier" style="width: 120px; height: auto; margin-bottom: 32px;">
+        <p style="font-family: 'Inter', sans-serif; font-size: 14px; color: #6B6B6B; margin-bottom: 24px;">Document confidentiel</p>
+        <input type="password" id="pwdInput" placeholder="Mot de passe" style="font-family: 'Inter', sans-serif; font-size: 14px; padding: 12px 20px; border: 1px solid #E5DDD3; border-radius: 4px; width: 100%; box-sizing: border-box; background: white; color: #1A1A1A; outline: none; margin-bottom: 12px;" onkeypress="if(event.key==='Enter')checkPwd()">
+        <button onclick="checkPwd()" style="font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: white; background: #5C483B; padding: 10px 24px; border: none; border-radius: 4px; cursor: pointer; width: 100%; box-sizing: border-box;">Accéder</button>
+        <p id="pwdError" style="font-family: 'Inter', sans-serif; font-size: 12px; color: #A0522D; margin-top: 12px; display: none;">Mot de passe incorrect</p>
+    </div>
+</div>
+<script>
+function checkPwd() {
+    var i = document.getElementById("pwdInput").value;
+    if (i === atob("Q2FydGllcklBMjAyNjAzTVQ=")) {
+        document.getElementById("authScreen").style.display = "none";
+        sessionStorage.setItem("ca", "1");
+    } else {
+        document.getElementById("pwdError").style.display = "block";
+        document.getElementById("pwdInput").value = "";
+    }
+}
+if (sessionStorage.getItem("ca") === "1") { document.getElementById("authScreen").style.display = "none"; }
+</script>
+
+
 <button class="burger" id="burgerBtn" aria-label="Menu">
     <span></span><span></span><span></span>
 </button>
