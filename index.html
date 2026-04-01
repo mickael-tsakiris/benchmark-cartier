@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmark Cartier — Visibilité dans les agents IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAF8F5;
+            --bg-alt: #F0EEE9;
+            --text: #1A1A1A;
+            --text-secondary: #6B6B6B;
+            --accent: #8A6D5A;
+            --accent-dark: #5C483B;
+            --border: #E5DDD3;
+            --green: #3D7A4A;
+            --amber: #B8860B;
+            --red: #A0522D;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 19px;
+            line-height: 1.75;
+            color: var(--text);
+            background: var(--bg);
+            margin: 0;
+        }
+
+        main {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 60px 40px 80px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 38px;
+            font-weight: 300;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            margin: 56px 0 20px;
+            font-weight: 600;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 500;
+            margin: 36px 0 12px;
+            color: var(--accent-dark);
+        }
+
+        h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin: 24px 0 8px;
+        }
+
+        p { margin-bottom: 18px; }
+
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .author {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+        a { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
+        a:hover { color: var(--accent); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        th {
+            background: var(--bg-alt);
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 12px 20px;
+            margin: 20px 0;
+            color: var(--text-secondary);
+            font-style: italic;
+            background: var(--bg-alt);
+            border-radius: 0 4px 4px 0;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        blockquote .platform-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 6px;
+            font-style: normal;
+        }
+
+        ul { margin-bottom: 18px; padding-left: 24px; }
+        li { margin-bottom: 8px; }
+        strong { font-weight: 600; }
+
+        .question-box {
+            background: var(--accent-dark);
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            margin: 28px 0 16px;
+            line-height: 1.4;
+        }
+
+        .question-box .q-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .analysis-box {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px 24px;
+            margin: 20px 0 32px;
+        }
+
+        .analysis-box h4 {
+            margin-top: 0;
+            color: var(--accent-dark);
+        }
+
+        .verdict {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+
+        .verdict-good { background: #e8f5e9; color: var(--green); }
+        .verdict-mixed { background: #fff8e1; color: var(--amber); }
+        .verdict-concern { background: #fbe9e7; color: var(--red); }
+
+        .exec-summary {
+            background: var(--bg-alt);
+            padding: 28px 32px;
+            border-radius: 8px;
+            margin: 24px 0 40px;
+        }
+
+        .exec-summary ul { margin-bottom: 0; }
+        .exec-summary li { margin-bottom: 10px; font-size: 18px; }
+
+        .methodology-box {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin: 24px 0 40px;
+        }
+
+        .methodology-box h4 { margin-top: 0; }
+
+        .methodology-box table {
+            margin: 16px 0 8px;
+        }
+
+        .reco-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            padding: 20px 24px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .reco-card h4 { margin-top: 0; }
+
+        .reco-card .how-to {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .reco-card .how-to h5 {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            margin: 0 0 10px;
+        }
+
+        .reco-card .how-to ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .reco-card .how-to li {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .reco-card .how-to li strong {
+            color: var(--text);
+        }
+
+        .footer-note {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            main { padding: 30px 20px; }
+            h1 { font-size: 28px; }
+            table { font-size: 13px; }
+            th, td { padding: 8px 10px; }
+        }
+
+        @media print {
+            body { font-size: 16px; }
+            main { max-width: none; padding: 20px; }
+            .question-box { background: #333; }
+        }
+    </style>
+</head>
+<body>
+<main>
+
+<h1>Benchmark Cartier</h1>
+<p class="subtitle">Visibilité dans les agents IA — Mars 2026</p>
+<p class="author">Mickaël Tsakiris — Document informatif</p>
+
+<hr>
+
+<!-- ===== MÉTHODOLOGIE ===== -->
+
+<h2>Méthodologie</h2>
+
+<div class="methodology-box">
+    <h4>Objet du test</h4>
+    <p style="margin-top:0;">Évaluation de la visibilité de Cartier dans les réponses générées par trois plateformes d'IA générative majeures, en simulant le parcours d'un consommateur réel qui interroge un agent IA sur la joaillerie de luxe.</p>
+
+    <h4>Plateformes testées</h4>
+    <table>
+        <tr>
+            <th>Plateforme</th>
+            <th>Modèle</th>
+            <th>Accès web temps réel</th>
+        </tr>
+        <tr>
+            <td>ChatGPT</td>
+            <td>GPT-4o</td>
+            <td>Non (knowledge cutoff)</td>
+        </tr>
+        <tr>
+            <td>Perplexity</td>
+            <td>Sonar</td>
+            <td>Oui (sources web indexées)</td>
+        </tr>
+        <tr>
+            <td>Claude</td>
+            <td>Sonnet 4</td>
+            <td>Non (knowledge cutoff)</td>
+        </tr>
+    </table>
+
+    <h4>Date du test</h4>
+    <p>31 mars 2026. Les résultats reflètent l'état des modèles à cette date. Les agents IA évoluent rapidement : une même question posée dans six mois pourra produire des réponses différentes.</p>
+
+    <h4>Corpus de requêtes</h4>
+    <p><strong>17 requêtes</strong> en français, rédigées dans un registre conversationnel naturel (tutoiement, abréviations, formulations du quotidien), réparties en <strong>6 catégories d'intention</strong> :</p>
+    <ul>
+        <li><strong>Découverte</strong> (3 requêtes) — l'utilisateur explore la joaillerie de luxe</li>
+        <li><strong>Comparaison</strong> (3 requêtes) — Cartier face à la concurrence directe</li>
+        <li><strong>Validation</strong> (3 requêtes) — l'acheteur hésite, cherche à se rassurer</li>
+        <li><strong>Parcours d'achat</strong> (3 requêtes) — comment acheter, prix, authenticité</li>
+        <li><strong>Investissement</strong> (2 requêtes) — dimension patrimoniale</li>
+        <li><strong>Substitution</strong> (3 requêtes) — alternatives et marques concurrentes</li>
+    </ul>
+
+    <h4>Source des requêtes</h4>
+    <p>Les requêtes ont été construites à partir de données de recherche réelles pour refléter les intentions authentiques des consommateurs :</p>
+    <ul>
+        <li><strong>Google Trends / Ahrefs</strong> : "Cartier Love bracelet" = 353 840 recherches/mois (volume mondial)</li>
+        <li><strong>Chrono24</strong> : données de marché secondaire sur l'horlogerie et la joaillerie Cartier</li>
+        <li><strong>PurseForum</strong> : fils de discussion consommateurs sur les achats Cartier, comparaisons, retours d'expérience</li>
+    </ul>
+
+    <h4>Grille d'évaluation</h4>
+    <p>Chaque réponse a été évaluée sur six critères :</p>
+    <ul>
+        <li><strong>Présence</strong> — Cartier est-elle citée ? En quelle position ?</li>
+        <li><strong>Position</strong> — rang dans la liste de recommandations (1re, 2e, 3e...)</li>
+        <li><strong>Exactitude</strong> — les faits sont-ils corrects ? (dates, prix, attributions)</li>
+        <li><strong>Préservation du récit</strong> — le positionnement de la maison est-il respecté ?</li>
+        <li><strong>Actionnabilité</strong> — la réponse permet-elle de passer à l'achat ?</li>
+        <li><strong>Sentiment</strong> — la tonalité est-elle favorable, neutre ou défavorable ?</li>
+    </ul>
+
+    <h4>Références méthodologiques</h4>
+    <p>Ce protocole s'appuie sur les travaux récents en GEO (Generative Engine Optimization) :</p>
+    <ul>
+        <li>Incremys, <em>GEO: Generative Engine Optimization Framework</em>, 2026</li>
+        <li>ConvertMate, <em>Brand Visibility in AI-Generated Responses</em>, 2026</li>
+        <li>Fifth Shelf, <em>Measuring Brand Presence in LLM Outputs</em>, 2026</li>
+    </ul>
+</div>
+
+<hr>
+
+<!-- ===== EXECUTIVE SUMMARY ===== -->
+
+<h2>Synthèse</h2>
+
+<div class="exec-summary">
+<p style="margin-top:0;">Ce benchmark analyse comment trois agents IA majeurs (ChatGPT, Perplexity, Claude) parlent de Cartier lorsqu'un utilisateur pose des questions sur la joaillerie de luxe. 17 requêtes testées, 6 catégories d'intention. Voici ce qui en ressort.</p>
+<ul>
+<li><strong>Cartier est systématiquement citée en premier</strong> par les trois plateformes dans la catégorie découverte. La notoriété de la maison est incontestable dans les réponses générées par l'IA.</li>
+<li><strong>Le bracelet Love cannibalise la visibilité</strong> : il apparaît dans quasiment chaque réponse, parfois au détriment des collections haute joaillerie, de la Panthère ou même de l'horlogerie.</li>
+<li><strong>Les agents orientent vers la seconde main</strong> : Vestiaire Collective, The RealReal et Collector Square sont cités comme canaux d'achat alternatifs. C'est un signal fort pour le contrôle de la distribution.</li>
+<li><strong>Perplexity est le plus précis sur les prix</strong> (hausses 2025 détaillées, +3,8 % sur le Love fin en or jaune). ChatGPT et Claude donnent des fourchettes approximatives ou avouent ne pas savoir.</li>
+<li><strong>Sur l'éthique, Perplexity est sévère</strong> : réponse nette ("non, Cartier n'est pas considérée comme une marque pleinement éthique"). ChatGPT et Claude sont plus nuancés mais le sujet est systématiquement soulevé.</li>
+<li><strong>L'actionnabilité est faible</strong> : aucun agent ne permet de prendre rendez-vous, de localiser une boutique avec horaires, ou de consulter un stock. Le parcours s'arrête à "rendez-vous sur cartier.com".</li>
+</ul>
+</div>
+
+<hr>
+
+<!-- ===== 1. DÉCOUVERTE ===== -->
+
+<h2>1. Découverte</h2>
+<p>Comment les agents IA présentent-ils Cartier quand un utilisateur découvre la joaillerie de luxe ?</p>
+
+<div class="question-box">
+    <span class="q-label">Question 1</span>
+    Quelles sont les plus grandes marques de joaillerie de luxe ?
+</div>
+
+<blockquote>
+    <span class="platform-label">ChatGPT (GPT-4o)</span>
+    Cite Cartier en premier, suivi de Tiffany, Bvlgari, Van Cleef, Harry Winston, Chopard et Graff. Présente Cartier comme "fondée en 1847 à Paris, célèbre pour le bracelet Love et la montre Tank".
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Place Cartier en tête avec l'angle Place Vendôme : "surnommé le joaillier des rois, célèbre pour son élégance classique et des icônes comme la bague Panthère". Cite Van Cleef, Boucheron, Chaumet dans le même souffle.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Organise par géographie : "maisons historiques françaises" (Cartier en tête, Van Cleef, Boucheron, Chaumet) puis "références internationales" (Tiffany, Harry Winston, Bvlgari, Chopard).
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-good">Positif</span>
+    <p>Cartier arrive en position 1 sur les trois plateformes. La notoriété digitale est sans faille. Les descriptifs reprennent les bons codes : héritage ("1847"), royauté ("joaillier des rois"), icônes (Love, Tank, Panthère). À noter : Perplexity est le seul à mentionner la Panthère dès la première question. ChatGPT et Claude se limitent au Love et à la Tank.</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 2</span>
+    Qu'est-ce qui rend Cartier spécial en joaillerie ?
+</div>
+
+<blockquote>
+    <span class="platform-label">ChatGPT</span>
+    Six axes : héritage, design innovant, lien royal, gamme (joaillerie + horlogerie), prestige mondial, investissement. Mentionne la montre Santos, la bague Trinity, le bracelet Love.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Angle technique original : "alliance unique entre tradition et modernité, or 18 carats ou platine, système de fermeture du bracelet Love, modularité permettant de porter un bijou de 4 ou 5 façons".
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Structure en trois blocs : héritage historique (175 ans, clientèle royale), innovations emblématiques (Santos 1904 = première montre-bracelet masculine, pionnier du platine), savoir-faire d'exception.
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-good">Positif</span>
+    <p>La narration de marque passe bien dans les trois agents. L'histoire Santos (1904) est citée par Claude. Perplexity ajoute un angle métier rare et pertinent (modularité, système de fermeture). ChatGPT reste le plus générique. Aucun agent ne mentionne la haute joaillerie comme savoir-faire distinctif — c'est un manque notable.</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 3</span>
+    Quelle est la différence entre haute joaillerie et joaillerie fine ?
+</div>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-mixed">À surveiller</span>
+    <p>Les trois agents expliquent correctement la distinction (pièces uniques vs petites séries, pierres d'exception vs pierres fines, prix). Cartier est citée comme référence en haute joaillerie par les trois. Mais aucun ne détaille les collections HJ de Cartier (pas de mention de <em>Sixième Sens</em>, de <em>Beautés du Monde</em>, ni des présentations Place Vendôme). La haute joaillerie reste un mot-clé générique, pas un territoire de contenu spécifique à Cartier.</p>
+</div>
+
+<hr>
+
+<!-- ===== 2. COMPARAISON ===== -->
+
+<h2>2. Comparaison</h2>
+<p>Comment les agents positionnent-ils Cartier face à la concurrence directe ?</p>
+
+<div class="question-box">
+    <span class="q-label">Question 1</span>
+    Cartier ou Van Cleef &amp; Arpels pour une bague de fiançailles ?
+</div>
+
+<blockquote>
+    <span class="platform-label">ChatGPT</span>
+    Cartier = "designs classiques et intemporels", cite le Solitaire 1895 comme emblématique. Van Cleef = "approche artistique et poétique". Verdict neutre, dépend des préférences.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Tableau comparatif structuré (style, prix, savoir-faire). Cartier = "classique et audacieux", Van Cleef = "poétique et enchanté". Le plus factuel des trois.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Format avantages/inconvénients. Cartier : prestige historique, reconnaissance mondiale, bonne valeur de revente. Inconvénient cité : "plus classique, moins d'originalité" et "prix élevé pour le nom".
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-mixed">À surveiller</span>
+    <p>Les trois agents traitent la question avec équilibre — aucun ne tranche en faveur de Cartier ou de Van Cleef. C'est normal pour une question de préférence. Mais le cadrage de Claude est préoccupant : "prix élevé pour le nom" est un jugement de valeur qui peut dissuader un acheteur. Et la qualification "moins d'originalité" face à Van Cleef est un raccourci qui ignore les collections récentes.</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 2</span>
+    Cartier ou Tiffany, lequel choisir ?
+</div>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Positionnement clair : "Cartier pour un style élégant, royal et formel avec une meilleure rétention de valeur ; Tiffany pour des pièces plus accessibles, modernes et adaptées au quotidien."
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Attribue à Cartier une "forte présence dans la maroquinerie et accessoires" — ce qui est factuellement inexact. Cartier n'est pas positionné sur la maroquinerie.
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-concern">Alerte</span>
+    <p><strong>Erreur factuelle de Claude</strong> sur la maroquinerie. Ce type de confusion (probablement par association avec le groupe Richemont ou avec d'autres maisons) est exactement le genre d'inexactitude que les agents IA produisent sur les marques de luxe. Cartier ne contrôle pas ce contenu. Perplexity est le plus juste : meilleure rétention de valeur, positionnement "royal et formel" — ce qui correspond à l'identité de la maison.</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 3</span>
+    Quel bijou de luxe acheter avec 5 000 euros ?
+</div>
+
+<blockquote>
+    <span class="platform-label">ChatGPT</span>
+    Mentionne Cartier, Boucheron, Chaumet comme options possibles dans cette gamme de prix pour des bagues en or ou platine.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Ne cite PAS Cartier. Recommande Messika, Pomellato, Chopard, Dinh Van avec des prix précis (3 500 à 5 500 euros). Tableau avec marque, type, description, prix.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Ne cite pas Cartier dans les recommandations concrètes. Oriente vers Omega, TAG Heuer pour les montres et des génériques "bague en or avec diamant" sans marque.
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-concern">Alerte</span>
+    <p><strong>Cartier disparaît du radar à 5 000 euros.</strong> Perplexity et Claude ne la citent pas du tout. Or, le petit modèle Love (Love fin en or jaune) est à 5 350 euros. La bague Trinity classique en or est dans cette gamme. Il existe des points d'entrée Cartier à ce budget — mais les agents ne le savent pas. C'est un trou de visibilité majeur sur le segment "premier achat de luxe".</p>
+</div>
+
+<hr>
+
+<!-- ===== 3. VALIDATION ===== -->
+
+<h2>3. Validation</h2>
+<p>Comment les agents répondent-ils à un acheteur qui hésite, qui cherche à se rassurer ?</p>
+
+<div class="question-box">
+    <span class="q-label">Question 1</span>
+    Est-ce que Cartier vaut le prix ?
+</div>
+
+<blockquote>
+    <span class="platform-label">ChatGPT</span>
+    Prudent : "cela dépend de vos priorités personnelles, de votre budget". Cite qualité, héritage, prestige, valeur de revente comme arguments positifs.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Le plus affirmatif : "investissement de luxe justifié pour ceux qui recherchent l'élégance intemporelle et la qualité exceptionnelle". Mentionne la demande constante sur Love et Trinity.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Liste équilibrée avantages/inconvénients. Point négatif cité : "markup important sur certaines pièces" et "alternatives offrant parfois un rapport qualité-prix comparable".
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-mixed">À surveiller</span>
+    <p>Perplexity joue clairement en faveur de Cartier. Claude, à l'inverse, introduit un doute ("markup important") qui n'est pas sourcé. ChatGPT est neutre. Pour un acheteur en phase de validation, la réponse de Claude pourrait faire hésiter — et pousser vers la question suivante : "quelles alternatives ?"</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 2</span>
+    Est-ce que le bracelet Love Cartier est un bon achat ?
+</div>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Réponse la plus riche : "créé en 1969 à New York par Aldo Cipullo, bracelet rigide ovale aux vis apparentes symbolisant un amour éternel". Cite prix spécifiques et appréciation de valeur.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Cite les prix (7 000-15 000 euros+), mentionne la contrainte physique comme point négatif ("se porte en permanence").
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-good">Positif</span>
+    <p>Les trois agents valident le Love comme bon achat. L'histoire (Aldo Cipullo, 1969, New York) est bien documentée. Perplexity est le plus convaincant avec des données chiffrées. La mention de la "contrainte physique" par Claude est factuelle et honnête — un client averti apprécie cette transparence.</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 3</span>
+    Cartier est-elle une marque éthique pour les diamants ?
+</div>
+
+<blockquote>
+    <span class="platform-label">ChatGPT</span>
+    Nuancé : membre fondateur du Responsible Jewellery Council (RJC), respecte le processus de Kimberley. "A pris des mesures pour améliorer l'éthique de ses pratiques."
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Réponse nette et sévère : "Non, Cartier n'est pas considérée comme une marque pleinement éthique pour ses diamants selon les critères stricts d'éthique, faute de preuves tangibles de traçabilité irréprochable."
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Position intermédiaire. Cite le RJC et Kimberley comme positifs, mais soulève les limites : "processus de Kimberley insuffisant, ne couvre pas tous les aspects éthiques".
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-concern">Alerte</span>
+    <p><strong>Le sujet éthique est le plus sensible du benchmark.</strong> Perplexity est sans appel. Or, cette réponse est la première qu'un acheteur engagé lira s'il pose la question. Cartier a pourtant des engagements réels (RJC, traçabilité, programme "Cartier for Nature") mais ces contenus ne sont visiblement pas assez structurés pour être captés par les agents IA. C'est un enjeu de réputation algorithmique.</p>
+</div>
+
+<hr>
+
+<!-- ===== 4. PROCESS ===== -->
+
+<h2>4. Parcours d'achat</h2>
+<p>Les agents peuvent-ils guider un acheteur jusqu'à la transaction ?</p>
+
+<div class="question-box">
+    <span class="q-label">Question 1</span>
+    Comment acheter un bracelet Love Cartier ?
+</div>
+
+<blockquote>
+    <span class="platform-label">ChatGPT</span>
+    Trois canaux : boutiques Cartier, site officiel, détaillants agréés. Mentionne la personnalisation et la livraison en ligne.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Ajoute des détails d'authentification ("or 18 carats 750/1000, système de vis signature") et oriente aussi vers le marché de seconde main.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Le plus détaillé sur l'occasion : cite Vestiaire Collective, The RealReal, Collector Square, Chronext comme canaux alternatifs.
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-concern">Alerte</span>
+    <p><strong>Les trois agents citent le marché de la seconde main comme canal d'achat valide.</strong> Claude y consacre une section entière. Pour une maison qui contrôle sa distribution, c'est un signal : l'agent IA agit comme un prescripteur qui normalise l'achat hors réseau. Aucun agent ne propose de prendre rendez-vous en boutique, de trouver la boutique la plus proche, ou de consulter la disponibilité. L'expérience s'arrête à "allez sur cartier.com".</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 2</span>
+    C'est quoi le prix d'un Love Cartier en 2026 ?
+</div>
+
+<blockquote>
+    <span class="platform-label">ChatGPT</span>
+    Refuse de répondre : "je ne peux pas prédire les prix futurs". Ne donne aucun chiffre.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Le seul à fournir des données détaillées : "Love fin en or jaune 5 350 euros (+3,8 %), bague Love classique 1 380 euros, bague Love or blanc huit diamants 4 950 euros (+2 %)". Source les prix 2025.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Avoue être en 2024 (erreur de date interne), donne des approximations : "Love classique en or environ 7 000-8 000 euros, Love avec diamants à partir de 10 000 euros+". Recommande de consulter Cartier directement.
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-mixed">À surveiller</span>
+    <p>Écart considérable entre les plateformes. Perplexity, grâce à ses sources web en temps réel, est le seul fiable sur les prix. ChatGPT refuse de répondre. Claude donne des chiffres obsolètes. Pour un acheteur, cette disparité est déroutante. Les prix Cartier sont publics sur cartier.com — mais les agents ne vont pas les chercher en temps réel (sauf Perplexity qui indexe des articles de presse spécialisée).</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 3</span>
+    Comment savoir si un bijou Cartier est authentique ?
+</div>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-good">Positif</span>
+    <p>Les trois agents sont précis et cohérents : gravure "Cartier", numéro de série, poinçons (750 pour or 18K, 950 pour platine), qualité de fabrication, écrin officiel. Claude ajoute le poids comme critère ("les contrefaçons sont souvent plus légères"). C'est l'une des rares questions où les agents donnent une réponse opérationnelle utile. À noter : aucun ne mentionne le service d'authentification officiel de Cartier.</p>
+</div>
+
+<hr>
+
+<!-- ===== 5. INVESTISSEMENT ===== -->
+
+<h2>5. Investissement</h2>
+<p>Comment les agents traitent-ils la dimension patrimoniale ?</p>
+
+<div class="question-box">
+    <span class="q-label">Question 1</span>
+    Est-ce que les bijoux Cartier prennent de la valeur ?
+</div>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Le plus factuel : cite des hausses spécifiques 2024-2025 (+17,9 % sur certains bracelets pavés, +4,1 % sur le Love pavé en or blanc, +3,8 % sur le Love fin). Mentionne les collections Love, Trinity et Juste un Clou comme les meilleures pour l'appréciation.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Distingue les pièces vintage (1920-1960) des pièces récentes. Cite la haute joaillerie et les modèles discontinués comme les plus intéressants. Nuance : "toutes les pièces ne s'apprécient pas de la même façon".
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-good">Positif</span>
+    <p>Les trois agents valident le potentiel de valorisation. Perplexity est le plus précis avec des pourcentages de hausse récents. Claude apporte une perspective intéressante sur le vintage. Le récit "Cartier comme valeur refuge" passe bien dans les IA.</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 2</span>
+    Cartier ou Van Cleef comme investissement ?
+</div>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Tranche en faveur de Cartier : "généralement considéré comme un meilleur investissement, reconnaissance internationale, pièces iconiques qui conservent bien leur valeur, part dominante estimée à 65 % dans la croissance du segment joaillerie de Richemont".
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Plus nuancé : "Cartier = plus stable, liquidité plus élevée, marché plus large. Van Cleef = plus exclusif, rareté, appréciation potentielle plus forte". Positionne Van Cleef comme le choix des collectionneurs.
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-good">Positif</span>
+    <p>Cartier est favorisée sur l'investissement par les trois plateformes. Le chiffre de 65 % de la croissance joaillerie Richemont (cité par Perplexity) est un argument fort. La distinction de Claude entre liquidité (Cartier) et appréciation (Van Cleef) est pertinente et honnête.</p>
+</div>
+
+<hr>
+
+<!-- ===== 6. SUBSTITUTION ===== -->
+
+<h2>6. Substitution</h2>
+<p>Quand un utilisateur cherche des alternatives, vers quoi les agents orientent-ils ?</p>
+
+<div class="question-box">
+    <span class="q-label">Question 1</span>
+    Des alternatives au bracelet Love Cartier ?
+</div>
+
+<blockquote>
+    <span class="platform-label">ChatGPT</span>
+    Cite Tiffany (collection T), Bvlgari (B.Zero1, Serpenti), Hermès, Van Cleef. Reste dans le luxe.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Mentionne le Juste Un Clou de Cartier comme première alternative (même designer, Aldo Cipullo). Puis Hermès, Van Cleef. Inclut aussi des alternatives en argent ou acier.
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Trois niveaux : luxe (Van Cleef, Tiffany, Hermès, Bvlgari), milieu de gamme (Pandora, Swarovski, Daniel Wellington), abordable (Michael Kors). Le spectre le plus large.
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-concern">Alerte</span>
+    <p><strong>Claude met Cartier et Pandora dans la même réponse.</strong> Même si c'est structuré par gamme de prix, la cohabitation visuelle est problématique pour le positionnement de la maison. Perplexity a le bon réflexe : proposer le Juste Un Clou comme première alternative (upsell interne à Cartier). C'est exactement le type de réponse qu'une maison souhaiterait voir l'agent produire.</p>
+</div>
+
+<div class="question-box">
+    <span class="q-label">Question 2</span>
+    Des marques comme Cartier mais moins chères ?
+</div>
+
+<blockquote>
+    <span class="platform-label">Perplexity</span>
+    Répond principalement sur l'horlogerie : Longines DolceVita, Orient, Seiko, Lip, Oris, Tissot. Prix 100 à 2 000 euros. Angle "alternatives à la Cartier Tank".
+</blockquote>
+
+<blockquote>
+    <span class="platform-label">Claude</span>
+    Sépare montres (Tissot, Frédérique Constant, Longines, TAG Heuer) et bijoux (Pandora, Swarovski, Thomas Sabo, Michael Kors).
+</blockquote>
+
+<div class="analysis-box">
+    <h4>Analyse</h4>
+    <span class="verdict verdict-concern">Alerte</span>
+    <p>La question de substitution est celle où Cartier a le plus à perdre. Les agents répondent volontiers — et orientent vers des marques qui n'ont rien à voir avec le positionnement Cartier. La cohabitation avec Swarovski ou Thomas Sabo, même en "alternative abordable", dilue la perception de la maison. Perplexity limite la casse en restant sur l'horlogerie (Longines est un comparatif moins dégradant que Pandora).</p>
+</div>
+
+<hr>
+
+<!-- ===== CONCLUSIONS ===== -->
+
+<h2>Conclusions et recommandations</h2>
+
+<h3>Positionnement concurrentiel</h3>
+
+<table>
+    <tr>
+        <th>Critère</th>
+        <th>Cartier</th>
+        <th>Van Cleef &amp; Arpels</th>
+        <th>Tiffany</th>
+        <th>Bvlgari</th>
+    </tr>
+    <tr>
+        <td>Position dans les réponses</td>
+        <td><strong>1re quasi-systématique</strong></td>
+        <td>2e ou 3e</td>
+        <td>2e ou 3e</td>
+        <td>4e ou 5e</td>
+    </tr>
+    <tr>
+        <td>Précision des informations</td>
+        <td>Bonne (héritage, icônes)</td>
+        <td>Bonne (poétique, serti Mystery)</td>
+        <td>Correcte (diamants, Tiffany Blue)</td>
+        <td>Faible (souvent générique)</td>
+    </tr>
+    <tr>
+        <td>Profondeur des collections</td>
+        <td>Faible (Love/Tank/Trinity dominent)</td>
+        <td>Moyenne (Alhambra, Perlée)</td>
+        <td>Faible (Tiffany Setting)</td>
+        <td>Faible (B.Zero1, Serpenti)</td>
+    </tr>
+    <tr>
+        <td>Erreurs factuelles détectées</td>
+        <td>1 (maroquinerie attribuée par Claude)</td>
+        <td>Aucune</td>
+        <td>Aucune</td>
+        <td>Aucune</td>
+    </tr>
+    <tr>
+        <td>Perception investissement</td>
+        <td><strong>Très favorable</strong></td>
+        <td>Favorable (niche)</td>
+        <td>Neutre</td>
+        <td>Non évaluée</td>
+    </tr>
+</table>
+
+<h3>Ce que les agents retiennent bien</h3>
+<ul>
+    <li>L'héritage historique (1847, "joaillier des rois") est parfaitement intégré.</li>
+    <li>Les pièces iconiques (Love, Tank, Santos, Trinity) sont systématiquement citées.</li>
+    <li>La valeur de revente et le potentiel d'investissement sont reconnus par les trois plateformes.</li>
+    <li>Le processus de Kimberley et le RJC sont mentionnés sur la question éthique.</li>
+</ul>
+
+<h3>Ce que les agents ratent ou déforment</h3>
+<ul>
+    <li><strong>La haute joaillerie est invisible.</strong> Aucune collection HJ spécifique n'est citée. Les présentations Place Vendôme, les pièces uniques, les commandes spéciales — rien de tout cela n'apparaît.</li>
+    <li><strong>La Panthère est sous-représentée.</strong> Mentionnée une seule fois (par Perplexity). Or c'est un pilier de l'identité visuelle de la maison.</li>
+    <li><strong>L'horlogerie est réduite à Tank et Santos.</strong> Pas de Ballon Bleu, pas de Clé, pas de Crash.</li>
+    <li><strong>Les engagements RSE sont mal documentés.</strong> "Cartier for Nature", la Fondation Cartier pour l'art contemporain, les programmes de formation — rien ne remonte.</li>
+    <li><strong>Claude attribue la maroquinerie à Cartier</strong> — erreur factuelle nette.</li>
+    <li><strong>Les points d'entrée de gamme sont inconnus</strong> : à 5 000 euros, Cartier disparaît des recommandations.</li>
+</ul>
+
+<h3>Le problème du Love bracelet</h3>
+<p>Le bracelet Love est un actif de marque extraordinaire. Mais dans les réponses des agents IA, il fonctionne comme un écran : il capture toute la visibilité et masque le reste de l'offre. Quand un utilisateur pose une question générique sur Cartier, la réponse revient systématiquement au Love. C'est à la fois une force (reconnaissance) et un risque (réduction de la marque à un seul produit).</p>
+<p>Van Cleef échappe à ce problème : l'Alhambra, le Perlée, le serti Mystery coexistent dans les réponses sans qu'un seul domine.</p>
+
+<h3>Le trou d'actionnabilité</h3>
+<p>Les agents IA ne savent pas vendre. Ils informent, comparent, rassurent (ou inquiètent). Mais au moment de passer à l'acte, le parcours s'arrête. Aucun ne propose :</p>
+<ul>
+    <li>De localiser la boutique la plus proche avec ses horaires</li>
+    <li>De prendre rendez-vous pour un essai</li>
+    <li>De vérifier la disponibilité d'un modèle</li>
+    <li>D'initier un parcours d'achat assisté (configurateur, chat concierge)</li>
+</ul>
+<p>Le dernier geste est toujours le même : "consultez cartier.com". C'est là que se situe l'espace d'innovation pour les maisons. Celui qui rend son expérience accessible aux agents IA (via des APIs, des données structurées, des intents commerce) capturera une part disproportionnée de la conversion.</p>
+
+<hr>
+
+<h2>Ce qu'une directrice de collection peut en retenir</h2>
+
+<div class="reco-card">
+    <h4>1. La haute joaillerie a besoin de contenu machine-readable</h4>
+    <p>Les collections HJ n'existent pas dans les réponses des agents parce qu'elles ne sont pas documentées dans un format que les IA peuvent ingérer. Les dossiers de presse, les catalogues PDF, les films de présentation — tout cela est invisible pour un LLM (Large Language Model, le moteur derrière ChatGPT et consorts). Les collections qui seront décrites en texte structuré, avec des métadonnées (pierres, carats, inspiration, année de création), seront celles que les agents citeront.</p>
+    <div class="how-to">
+        <h5>Comment faire</h5>
+        <ul>
+            <li><strong>Creer une page HTML dediee par collection HJ</strong> (Sixieme Sens, Beautes du Monde, etc.) avec du texte structure — pas seulement des images. Les LLM ne "voient" pas les visuels : une page produit composee a 90 % d'images est invisible pour eux.</li>
+            <li><strong>Implementer le schema.org <code>Product</code> en JSON-LD</strong> pour chaque piece : materiaux, carats, inspiration, annee de creation. La performance d'un LLM passe de 16 % a 54 % quand le contenu est structure (Walker Sands).</li>
+            <li><strong>Ajouter des FAQ structurees</strong> (schema <code>FAQPage</code>) : "Qu'est-ce que la haute joaillerie Cartier ?", "Comment prendre rendez-vous pour decouvrir une collection HJ ?" — le format Q&amp;A est le format natif des LLM.</li>
+            <li><strong>S'assurer que ces pages sont en SSR</strong> (Server-Side Rendering) — les bots IA (GPTBot, ClaudeBot, PerplexityBot) ne rendent pas le JavaScript. Un site typique : HTML brut = 2 KB de balises script. Rendu = 50 KB de texte riche. Ce delta est invisible pour les agents.</li>
+            <li><strong>Budget estime</strong> : 2-4 semaines de travail editorial + technique.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="reco-card">
+    <h4>2. Diversifier les icônes dans le récit digital</h4>
+    <p>Si le Love capte 80 % de la visibilité, c'est aussi parce que c'est le produit le plus documenté en ligne (articles de presse, vidéos YouTube, forums, blogs). Les autres collections n'ont pas le même volume de contenu tiers. Alimenter la conversation sur la Panthère, sur Clash, sur Juste un Clou — pas seulement via la publicité, mais via du contenu éditorial et des partenariats — est un levier pour rééquilibrer le récit algorithmique.</p>
+    <div class="how-to">
+        <h5>Comment faire</h5>
+        <ul>
+            <li><strong>Creer du contenu editorial riche</strong> (articles, interviews d'artisans, videos avec transcriptions) sur Panthere, Clash, Juste un Clou — au meme volume que ce qui existe sur le Love.</li>
+            <li><strong>Briefer les relations presse</strong> pour obtenir des articles specifiques sur ces collections. Les agents IA citent ce qui est documente dans la presse et les contenus tiers — le "double lectorat" (le journaliste lit, mais le LLM aussi).</li>
+            <li><strong>Mettre a jour le contenu produit sur cartier.com toutes les 4 semaines.</strong> Le contenu mis a jour depuis moins de 30 jours est 3,2x plus cite par les agents IA (ConvertMate, 2026).</li>
+            <li><strong>Deployer un outil de monitoring</strong> pour mesurer le Share of Voice par collection : Evertune ($19M Series A, Felicis — 1M+ prompts/mois par marque, AI Brand Index) ou Profound ($399/mois, $58,5M Sequoia).</li>
+        </ul>
+    </div>
+</div>
+
+<div class="reco-card">
+    <h4>3. Occuper le terrain "premier achat" à 5 000 euros</h4>
+    <p>Cartier disparaît des recommandations à ce budget. Pourtant, la bague Trinity, le Love fin, les petits modèles Panthère sont dans cette gamme. C'est un segment stratégique : le premier achat Cartier fabrique un client à vie. Si les agents IA n'y dirigent personne, c'est Messika, Dinh Van ou Pomellato qui captent cette intention.</p>
+    <div class="how-to">
+        <h5>Comment faire</h5>
+        <ul>
+            <li><strong>Creer une page "Premier achat Cartier"</strong> avec du contenu structure (FAQ, guide, comparatif par budget) — le format Q&amp;A est le format natif des LLM, directement extrait par les agents.</li>
+            <li><strong>Cibler les requetes conversationnelles</strong> : "quel bijou offrir pour 5 000 euros", "premier bijou de luxe", "cadeau joaillerie budget 5000". 44,2 % des citations proviennent des 30 premiers % du texte — front-loader les reponses.</li>
+            <li><strong>Implementer schema.org <code>Product</code> + <code>Offer</code></strong> avec les prix reels pour les pieces d'entree de gamme (Trinity, Love fin, petite Panthere). Chaque variante = son propre Offer.</li>
+            <li><strong>S'inscrire dans Google Merchant Center</strong> pour que ces produits remontent dans les reponses AI Mode de Google — le pipeline direct vers le commerce agentique.</li>
+            <li><strong>Former les RP au double lectorat</strong> : briefer les journalistes sur cette gamme. Le journaliste lit, mais le LLM aussi.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="reco-card">
+    <h4>4. Préparer le récit éthique</h4>
+    <p>La réponse de Perplexity sur l'éthique des diamants est un risque réputationnel mesurable. Un acheteur qui pose cette question à un agent IA en 2026 lit "Cartier n'est pas considérée comme une marque pleinement éthique". La maison a des engagements réels (RJC, Kimberley, traçabilité, "Cartier for Nature"). Mais ils ne sont pas structurés pour être captés par les IA. Publier une page dédiée, avec des données vérifiables et des indicateurs, c'est de la gestion de risque — pas de la communication.</p>
+    <div class="how-to">
+        <h5>Comment faire</h5>
+        <ul>
+            <li><strong>Publier une page dediee cartier.com/ethique</strong> (ou /responsabilite) en HTML — pas en PDF. Les crawlers IA n'indexent pas les PDF de maniere fiable. Dupliquer tout contenu PDF en pages HTML.</li>
+            <li><strong>Y integrer des donnees verifiables</strong> : % de diamants tracables, nombre de fournisseurs certifies RJC, investissements Cartier for Nature (chiffres, dates, resultats).</li>
+            <li><strong>Structurer cette page en FAQ</strong> (schema <code>FAQPage</code>) : "D'ou viennent les diamants Cartier ?", "Cartier est-elle une marque ethique ?" — pour que cette page devienne la SOURCE PRIMAIRE que les agents IA citent.</li>
+            <li><strong>Ajouter des liens vers les rapports officiels</strong> (Richemont ESG Report, RJC certification) — les agents IA remontent les contenus qui citent des sources verifiables.</li>
+            <li><strong>Rafraichir cette page au minimum tous les 6 mois</strong> avec des donnees mises a jour. Contenu &lt; 30 jours = 3,2x plus cite.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="reco-card">
+    <h4>5. Surveiller la normalisation de la seconde main</h4>
+    <p>Les trois agents citent Vestiaire Collective, The RealReal ou Collector Square comme canaux d'achat pour du Cartier. Ce n'est pas une anomalie : c'est le reflet de ce que disent les contenus en ligne. Mais pour une maison qui contrôle sa distribution, voir un agent IA orienter un acheteur vers le marché gris est un sujet stratégique. La réponse n'est pas de censurer — c'est de proposer une alternative si convaincante (prise de rendez-vous, essai, financement, SAV à vie) que le canal officiel devienne l'évidence.</p>
+    <div class="how-to">
+        <h5>Comment faire</h5>
+        <ul>
+            <li><strong>Creer du contenu "officiel" sur la durabilite et l'entretien a vie</strong> des pieces Cartier (SAV, reparations, certificats d'authenticite). Si l'agent IA cite du contenu officiel Cartier sur la durabilite, il est moins susceptible d'orienter vers la revente.</li>
+            <li><strong>Envisager un programme Cartier Certified Pre-Owned</strong> (comme Rolex CPO lance en 2022). Les agents IA citeraient le canal officiel de seconde main au lieu des plateformes tierces — controle du recit retrouve.</li>
+            <li><strong>Implementer schema.org sur les pages SAV</strong> avec <code>Service</code>, <code>RepairAction</code>, <code>WarrantyScope</code> — rendre le service apres-vente lisible par les agents.</li>
+            <li><strong>Monitorer mensuellement les reponses des agents</strong> sur "acheter Cartier occasion" pour detecter les derives. Outils : Otterly.ai ($29/mois) ou Peec AI (90 EUR/mois) pour un suivi regulier a budget raisonnable.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="reco-card">
+    <h4>6. Rendre cartier.com lisible par les agents IA</h4>
+    <p>L'ensemble des recommandations ci-dessus suppose un prealable : que le site cartier.com soit techniquement lisible par les agents IA. Aujourd'hui, les crawlers IA (GPTBot, ClaudeBot, PerplexityBot) ne rendent pas le JavaScript. Si le catalogue est construit en React ou Vue sans SSR (Server-Side Rendering), les pages produit sont invisibles — un site typique : HTML brut = 2 KB de balises script, rendu complet = 50 KB de texte riche. Ce delta est un angle mort strategique.</p>
+    <div class="how-to">
+        <h5>Comment faire</h5>
+        <ul>
+            <li><strong>Audit technique prioritaire</strong> : les pages produit cartier.com sont-elles en SSR ? Le contenu est-il dans le HTML initial ou genere par JavaScript ? Test simple : desactiver le JavaScript dans le navigateur et verifier ce qui reste visible.</li>
+            <li><strong>Implementer le SSR</strong> (ou au minimum le pre-rendering) sur l'ensemble du catalogue produit. Chaque page doit contenir du texte riche dans le HTML brut — pas seulement des images.</li>
+            <li><strong>Deployer les donnees structurees JSON-LD</strong> sur l'ensemble du catalogue : schema.org <code>Product</code>, <code>Organization</code>, <code>Brand</code>, <code>Offer</code>. Performance LLM : de 16 % a 54 % quand le contenu est structure (Walker Sands).</li>
+            <li><strong>Enrichir les alt-text de toutes les images produit</strong> avec des descriptions riches (materiaux, couleur, contexte). Les LLM ne "voient" pas les images : pas de texte = pas de citation.</li>
+            <li><strong>Cout estime</strong> : audit + correction SSR = 50-80K EUR pour un site de cette envergure (3-4 mois).</li>
+            <li><strong>ROI attendu</strong> : le trafic IA convertit 4,4x mieux que le trafic organique traditionnel (ConvertMate, 2026).</li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<h3>Note de méthode</h3>
+<p>Ce benchmark a été réalisé en mars 2026 sur trois plateformes d'IA générative : ChatGPT (modèle GPT-4o), Perplexity (modèle Sonar) et Claude (modèle Sonnet 4). 17 requêtes en français, rédigées dans un registre conversationnel naturel (tutoiement, abréviations, formulations du quotidien). Les réponses ont été collectées, croisées et analysées sans modification.</p>
+<p>Les résultats reflètent l'état des modèles à la date du test. Les agents IA évoluent rapidement : une même question posée dans six mois pourra produire des réponses différentes.</p>
+
+<div class="footer-note">
+    <p>Document informatif — Mickaël Tsakiris — Mars 2026<br>
+    Ce document n'est pas destiné à la publication. Il est produit à titre personnel pour illustrer les enjeux de visibilité des marques de luxe dans les agents d'intelligence artificielle.</p>
+</div>
+
+</main>
+</body>
+</html>
