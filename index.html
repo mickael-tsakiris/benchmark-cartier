@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#FAF8F5">
+
     <title>Benchmark Cartier — Visibilite dans les agents IA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -774,6 +778,60 @@ strong { font-weight: 600; }
         flex-direction: column !important;
         text-align: center;
     }
+}
+
+
+/* ===== CROSS-BROWSER FIXES (Chrome, Safari, Edge) ===== */
+
+/* Webkit (Chrome, Safari, Edge Chromium) */
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* Safari flexbox fix */
+.sidebar { -webkit-overflow-scrolling: touch; }
+
+/* Safari backdrop */
+.sidebar-overlay.active { -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+
+/* Edge scrollbar styling */
+* { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Safari smooth scroll polyfill */
+html { scroll-behavior: smooth; -webkit-scroll-behavior: smooth; }
+
+/* Safari table layout fix */
+table { -webkit-border-horizontal-spacing: 0; -webkit-border-vertical-spacing: 0; }
+
+/* Chart.js canvas crisp rendering all browsers */
+canvas { image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+
+/* Safari position:sticky fallback for sidebar */
+.sidebar { position: -webkit-sticky; position: fixed; }
+
+/* Edge/Chrome print fix */
+@media print {
+    .sidebar, .burger, .sidebar-overlay, .progress-bar { display: none !important; }
+    main { margin-left: 0 !important; max-width: 100% !important; }
+    canvas { max-width: 100%; page-break-inside: avoid; }
+    table { page-break-inside: avoid; }
+    .question-box, .analysis-box, .reco-card { page-break-inside: avoid; }
+}
+
+/* Safari gap fallback for older versions */
+@supports not (gap: 32px) {
+    .sidebar a { margin-bottom: 4px; }
+    div[style*="gap: 32px"] > * { margin-bottom: 32px; }
+    div[style*="gap: 24px"] > * { margin-bottom: 24px; }
+}
+
+/* Edge text rendering */
+body { text-rendering: optimizeLegibility; }
+
+/* Safari 100vh fix */
+@supports (-webkit-touch-callout: none) {
+    .sidebar { height: -webkit-fill-available; }
 }
 
 </style>
